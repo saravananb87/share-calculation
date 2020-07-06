@@ -1,7 +1,9 @@
-using System;
 
 namespace ShareCalculator.Ui.Models
 {
+    /// <summary>
+    /// Error view model
+    /// </summary>
     public class ErrorViewModel
     {
         public string RequestId { get; set; }

@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
+﻿
 namespace ShareCalculator.Ui.Models
 {
 
     /// <summary>
-    /// Share calculation response.
+    /// Share calculation info view model
     /// </summary>
-    public class ShareInfoResponse
+    public class ShareInfoViewModel
     {
         /// <summary>
         /// Cost pirce of the sold shares.

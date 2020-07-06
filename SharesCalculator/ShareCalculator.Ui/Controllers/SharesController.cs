@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using ShareCalculator.Ui.Models;
@@ -39,7 +37,7 @@ namespace ShareCalculator.Ui.Controllers
         // POST: SharesController/Calculate
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Calculate(SaleDetailRequest  saleDetail)
+        public async Task<ActionResult> Calculate(SaleDetailViewModel  saleDetail)
         
         {
             if (!ModelState.IsValid)
@@ -71,7 +69,7 @@ namespace ShareCalculator.Ui.Controllers
                     {
                         var responseContent = await response.Content.ReadAsStringAsync();
 
-                        var shareInfoResponse = JsonConvert.DeserializeObject<ShareInfoResponse>(responseContent);
+                        var shareInfoResponse = JsonConvert.DeserializeObject<ShareInfoViewModel>(responseContent);
 
                         return View("ShareInfo", shareInfoResponse);
 

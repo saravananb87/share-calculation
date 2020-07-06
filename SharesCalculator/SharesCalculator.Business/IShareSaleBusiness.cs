@@ -1,9 +1,7 @@
 ﻿
 using SharesCalculator.Business.Models;
 using SharesCalculator.Data.Models;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace SharesCalculator.Business
 {

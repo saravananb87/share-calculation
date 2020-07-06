@@ -4,9 +4,9 @@ using System.ComponentModel.DataAnnotations;
 namespace ShareCalculator.Ui.Models
 {
     /// <summary>
-    /// Share sale details HTTP request.
+    /// Share sale details view model
     /// </summary>
-    public class SaleDetailRequest
+    public class SaleDetailViewModel
     {
         /// <summary>
         /// Sold share count. 
