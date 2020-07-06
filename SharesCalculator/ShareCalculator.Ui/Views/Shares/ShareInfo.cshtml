@@ -1,0 +1,47 @@
+﻿@model ShareCalculator.Ui.Models.ShareInfoResponse
+
+@{
+    ViewData["Title"] = "Share Info";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Shares Info</h1>
+
+<div class="row">
+    <div class="col-md-4">
+        
+
+            <hr />
+
+            <div class="form-group">
+                <label class="control-label">Cost Price Of Sold Shares</label>
+                <label id="CostPriceOfSoldShares" class="form-control"> @Model.CostPriceOfSoldShares $  </label>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label">Gain Or Loss On Sale</label>
+                <label id="GainOrLossOnSale" class="form-control"> @Model.GainOrLossInPrice $  </label>
+
+            </div>
+
+            <div class="form-group">
+                <label class="control-label">Number of Reamaining Shares</label>
+                <label id="NumberOfRemaingShares" class="form-control"> @Model.NoOfRemainingShares </label>
+
+            </div>
+
+            <div class="form-group">
+                <label class="control-label">Cost Price Of Remaining Shares</label>
+                <label id="CostPriceOfRemaingShares" class="form-control"> @Model.CostPriceOfRemainingShares  $  </label>
+
+            </div>
+
+
+            <hr />
+        
+    </div>
+</div>
+<div>
+   
+    <a asp-action="Calculate">Go Back </a>
+</div>
