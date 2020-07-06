@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -60,7 +61,13 @@ namespace SharesCalculator.Api.Controllers.Api
 
             if (!ModelState.IsValid)
             {
-                return BadRequest( ModelState.Values);
+                string messages = string.Join("; ", ModelState.Values
+                           .SelectMany(x => x.Errors)
+                           .Select(x => x.ErrorMessage));
+
+                _logger.LogError(messages);
+
+                return BadRequest(messages);
             }
 
             try
@@ -75,11 +82,14 @@ namespace SharesCalculator.Api.Controllers.Api
             }
             catch (ValidationException ex)
             {
-                return BadRequest(ex.Message);
+                _logger.LogError(ex.Message, ex.StackTrace);
+                return BadRequest(ex.StackTrace);
 
             }
             catch (Exception ex)
             {
+                _logger.LogError(ex.Message, ex.StackTrace);
+                
                 return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }
         }

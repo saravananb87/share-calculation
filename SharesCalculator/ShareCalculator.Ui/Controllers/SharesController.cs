@@ -8,6 +8,9 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using ShareCalculator.Ui.Models;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
+
 
 namespace ShareCalculator.Ui.Controllers
 {
@@ -16,6 +19,14 @@ namespace ShareCalculator.Ui.Controllers
     /// </summary>
     public class SharesController : Controller
     {
+
+        private readonly IConfiguration _configuration;
+        private readonly ILogger<SharesController> _logger;
+        public SharesController(IConfiguration configuration, ILogger<SharesController> logger)
+        {
+            _configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
+            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+        }
         // GET: SharesController
 
         [HttpGet]
@@ -37,6 +48,8 @@ namespace ShareCalculator.Ui.Controllers
                                         .SelectMany(x => x.Errors)
                                         .Select(x => x.ErrorMessage));
 
+                _logger.LogError(messages);
+
                 return BadRequest(messages);
             }
 
@@ -45,7 +58,7 @@ namespace ShareCalculator.Ui.Controllers
                 using (var client = new HttpClient())
                 {
                     // This should come from IConfiguration.
-                    var url = "https://localhost:6001/api/v1";
+                    var url = _configuration["ApiBaseUrl"];
                     client.BaseAddress = new Uri(url);
 
                     string saleData = JsonConvert.SerializeObject(saleDetail);
@@ -65,12 +78,16 @@ namespace ShareCalculator.Ui.Controllers
                     }
                     else
                     {
-                        return BadRequest(await response.Content.ReadAsStringAsync());
+                        var message = await response.Content.ReadAsStringAsync();
+                        _logger.LogError(message);
+                        return BadRequest(message);
                     }
                 }
             }
             catch (Exception ex)
             {
+
+                _logger.LogError(ex.Message, ex.StackTrace);
                 return BadRequest(ex.StackTrace);
             }
             
