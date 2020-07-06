@@ -23,3 +23,7 @@ API swagger documentation available in https://localhost:6001/swagger/index.html
 API:
 
 By default API available in https://localhost:6001/api/v1/shares , we can change the port number in LaunchSettings.json and UI project appsettings.json & appsettings.development.json
+
+UI:
+
+Please browse https://localhost:5001/
